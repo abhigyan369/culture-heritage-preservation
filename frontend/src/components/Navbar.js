@@ -11,6 +11,7 @@ import {
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
+  ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
 
 const Navbar = () => {
@@ -100,6 +101,15 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-4">
             {isAuthenticated ? (
               <div className="flex items-center space-x-3">
+                {user?.role === 'admin' && (
+                  <Link
+                    to="/admin/dashboard"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-medium text-yellow-300 hover:text-yellow-400 hover:bg-primary-700 transition-all duration-200 font-display uppercase tracking-widest"
+                  >
+                    <ShieldCheckIcon className="w-4 h-4" />
+                    <span className="hidden md:block">Admin</span>
+                  </Link>
+                )}
                 <Link
                   to="/profile"
                   className="flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-medium text-white hover:text-accent-500 hover:bg-primary-700 transition-all duration-200 font-display uppercase tracking-widest"
@@ -117,6 +127,13 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-3">
+                <Link
+                  to="/admin/login"
+                  className="px-4 py-2 text-xs font-medium text-yellow-300 hover:text-yellow-400 transition-colors font-display uppercase tracking-widest flex items-center"
+                >
+                  <ShieldCheckIcon className="w-4 h-4 mr-1" />
+                  Admin
+                </Link>
                 <Link
                   to="/login"
                   className="px-4 py-2 text-xs font-medium text-accent-300 hover:text-accent-500 transition-colors font-display uppercase tracking-widest"
@@ -172,6 +189,15 @@ const Navbar = () => {
               <div className="border-t border-accent-500 pt-4 mt-4">
                 {isAuthenticated ? (
                   <div className="space-y-2">
+                    {user?.role === 'admin' && (
+                      <Link
+                        to="/admin/dashboard"
+                        className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-yellow-300 hover:text-yellow-400 hover:bg-primary-700 transition-all duration-200 font-display uppercase tracking-wider"
+                      >
+                        <ShieldCheckIcon className="w-5 h-5" />
+                        <span>Admin Panel</span>
+                      </Link>
+                    )}
                     <Link
                       to="/profile"
                       className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-white hover:text-accent-500 hover:bg-primary-700 transition-all duration-200 font-display uppercase tracking-wider"
@@ -189,6 +215,13 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <div className="space-y-2 px-4">
+                    <Link
+                      to="/admin/login"
+                      className="block w-full text-center px-4 py-3 text-sm font-medium text-yellow-300 hover:text-yellow-400 transition-colors font-display uppercase tracking-wider flex items-center justify-center"
+                    >
+                      <ShieldCheckIcon className="w-4 h-4 mr-1" />
+                      Admin Login
+                    </Link>
                     <Link
                       to="/login"
                       className="block w-full text-center px-4 py-3 text-sm font-medium text-accent-300 hover:text-accent-500 transition-colors font-display uppercase tracking-wider"

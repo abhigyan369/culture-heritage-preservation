@@ -14,8 +14,24 @@ exports.getHeritageSites = async (req, res, next) => {
     const city = req.query.city;
     const state = req.query.state;
 
-    // All sites are now active by default
-    const query = { status: 'active' };
+    const query = {};
+
+    // Allow admins to view all statuses or filter by status
+    if (req.user && req.user.role === 'admin') {
+      if (req.query.status) {
+        query.status = req.query.status;
+      }
+    } 
+    // Allow users to view all of their own contributed sites
+    else if (req.user && req.query.contributedBy === req.user.id) {
+      if (req.query.status) {
+        query.status = req.query.status;
+      }
+    } 
+    // Public queries only show active sites
+    else {
+      query.status = 'active';
+    }
 
     if (category) {
       query.category = category;
@@ -127,9 +143,9 @@ exports.createHeritageSite = async (req, res, next) => {
       });
     }
 
-    // Set status to active immediately - no review required
-    req.body.status = 'active';
-    req.body.verified = true;
+    // Set status to pending - requires admin approval
+    req.body.status = 'pending';
+    req.body.verified = false;
     req.body.contributedBy = req.user.id;
 
     // Process uploaded images from local storage

@@ -4,9 +4,9 @@ import toast from 'react-hot-toast';
 
 // Initial state
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem('user')) || null,
   token: localStorage.getItem('token'),
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem('token'),
   loading: true,
   error: null,
 };
@@ -23,6 +23,7 @@ const UPDATE_USER = 'UPDATE_USER';
 const authReducer = (state, action) => {
   switch (action.type) {
     case AUTH_SUCCESS:
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
       return {
         ...state,
         user: action.payload.user,
@@ -41,6 +42,7 @@ const authReducer = (state, action) => {
         error: action.payload,
       };
     case LOGOUT:
+      localStorage.removeItem('user');
       return {
         ...state,
         user: null,

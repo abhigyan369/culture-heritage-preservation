@@ -176,7 +176,7 @@ const heritageSiteSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ['pending', 'active', 'rejected'],
-    default: 'active'
+    default: 'pending'
   },
   tags: [String],
   contributedBy: {

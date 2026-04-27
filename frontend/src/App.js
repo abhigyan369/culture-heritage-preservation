@@ -14,6 +14,9 @@ import HeritageDetail from './pages/HeritageDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/admin/Dashboard';
+import AdminHeritageSites from './pages/admin/HeritageSites';
 import NotFound from './pages/NotFound';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
@@ -67,6 +70,21 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
+
+                  {/* Admin Routes */}
+                  <Route path="/admin/login" element={<AdminLogin />} />
+                  <Route
+                    path="/admin"
+                    element={
+                      <ProtectedRoute adminOnly>
+                        <AdminDashboard />
+                      </ProtectedRoute>
+                    }
+                  >
+                    <Route index element={<AdminHeritageSites />} />
+                    <Route path="dashboard" element={<AdminHeritageSites />} />
+                    <Route path="heritage-sites" element={<AdminHeritageSites />} />
+                  </Route>
 
                   {/* 404 Page */}
                   <Route path="*" element={<NotFound />} />
